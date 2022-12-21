@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import postRoutes from "./routes/posts.js";
 
+dotenv.config();
 const app = express();
 
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
@@ -16,7 +17,6 @@ app.use("/posts", postRoutes);
 // const CONNECTION_URL =
 //   "mongodb+srv://javascriptmastery:javascriptmastery123@cluster0.jfoj9pz.mongodb.net/?retryWrites=true&w=majority";
 
-dotenv.config();
 const PORT = process.env.PORT || 5000;
 
 mongoose.set("strictQuery", true); // for future problems remove this or move below connection
@@ -26,7 +26,9 @@ mongoose
     // useUnifiedTopology: true,
   })
   .then(() => {
-    app.listen(PORT, console.log(`server running on port : ${PORT}`));
+    app.listen(PORT, () => {
+      console.log(`server running on port : ${PORT}`);
+    });
   })
   .catch((error) => {
     console.log(error.message);
