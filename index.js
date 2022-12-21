@@ -8,14 +8,15 @@ import postRoutes from "./routes/posts.js";
 const app = express();
 dotenv.config();
 
+app.use(bodyParser.json({ limit: "30mb", extended: true }));
+app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
+app.use(cors());
+
 mongoose.set("strictQuery", true); // for future problems remove this or move below connection
 mongoose.connect(process.env.CONNECTION_URL, {
   // useNewUrlParse: true,
   // useUnifiedTopology: true,
 });
-app.use(bodyParser.json({ limit: "30mb", extended: true }));
-app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
-app.use(cors());
 
 app.use("/posts", postRoutes);
 
