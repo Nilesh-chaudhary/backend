@@ -14,27 +14,22 @@ app.use(cors());
 
 app.use("/posts", postRoutes);
 
-app.get("/", (req, res) => {
-  res.send("welcome to memories api");
-});
 // const CONNECTION_URL =
 //   "mongodb+srv://javascriptmastery:javascriptmastery123@cluster0.jfoj9pz.mongodb.net/?retryWrites=true&w=majority";
 
 const PORT = process.env.PORT || 5000;
 
-mongoose.set("strictQuery", true); // for future problems remove this or move below connection
-mongoose
-  .connect(process.env.CONNECTION_URL, {
-    // useNewUrlParse: true,
-    // useUnifiedTopology: true,
-  })
-  .then(() => {
-    app.listen(PORT, () => {
-      console.log(`server running on port : ${PORT}`);
-    });
-  })
-  .catch((error) => {
-    console.log(error.message);
-  });
+// mongoose.set("strictQuery", true); // for future problems remove this or move below connection
+mongoose.connect(process.env.CONNECTION_URL, {
+  useNewUrlParse: true,
+  // useUnifiedTopology: true,
+});
 
+app.get("/", (req, res) => {
+  res.send("welcome to memories api");
+});
 // mongoose.set("useFindAndModify", false);
+app.listen(PORT, () => {
+  console.log(`server running on port : ${PORT}`);
+  // console.log(process.env.CONNECTION_URL);
+});
