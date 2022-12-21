@@ -19,9 +19,9 @@ app.use("/posts", postRoutes);
 
 const PORT = process.env.PORT || 5000;
 
-// mongoose.set("strictQuery", true); // for future problems remove this or move below connection
+mongoose.set("strictQuery", true); // for future problems remove this or move below connection
 mongoose.connect(process.env.CONNECTION_URL, {
-  useNewUrlParse: true,
+  // useNewUrlParse: true,
   // useUnifiedTopology: true,
 });
 
