@@ -5,8 +5,8 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import postRoutes from "./routes/posts.js";
 
-dotenv.config();
 const app = express();
+dotenv.config();
 
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
@@ -14,6 +14,9 @@ app.use(cors());
 
 app.use("/posts", postRoutes);
 
+app.get("/", (req, res) => {
+  res.send("welcome to memories api");
+});
 // const CONNECTION_URL =
 //   "mongodb+srv://javascriptmastery:javascriptmastery123@cluster0.jfoj9pz.mongodb.net/?retryWrites=true&w=majority";
 
