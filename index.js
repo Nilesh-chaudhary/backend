@@ -7,16 +7,23 @@ import postRoutes from "./routes/posts.js";
 
 const app = express();
 dotenv.config();
+app.use(cors());
 
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
-app.use(cors());
 
 mongoose.set("strictQuery", true); // for future problems remove this or move below connection
-mongoose.connect(process.env.CONNECTION_URL, {
-  // useNewUrlParse: true,
-  // useUnifiedTopology: true,
-});
+mongoose
+  .connect(process.env.CONNECTION_URL, {
+    // useNewUrlParse: true,
+    // useUnifiedTopology: true,
+  })
+  .then(
+    app.listen(5000, () => {
+      console.log(`server running on port : ${PORT}`);
+      // console.log(process.env.CONNECTION_URL);
+    })
+  );
 
 app.use("/posts", postRoutes);
 
@@ -29,7 +36,8 @@ app.get("/", (req, res) => {
   res.send("welcome to memories api");
 });
 // mongoose.set("useFindAndModify", false);
-app.listen(PORT, () => {
-  console.log(`server running on port : ${PORT}`);
-  // console.log(process.env.CONNECTION_URL);
-});
+
+// app.listen(PORT, () => {
+//   console.log(`server running on port : ${PORT}`);
+//   // console.log(process.env.CONNECTION_URL);
+// });
